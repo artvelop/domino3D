@@ -17,7 +17,7 @@ export class FloorObject {
       }),
     )
 
-    this.mesh.rotation.x = THREE.MathUtils.radToDeg(90)
+    this.mesh.rotation.x = THREE.MathUtils.degToRad(-90)
 
     this.world = cannonWorld
 
@@ -29,6 +29,7 @@ export class FloorObject {
       material: new CANNON.Material('floor'),
     })
 
+    cannonPlaneBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), THREE.MathUtils.degToRad(90))
     this.world.addBody(cannonPlaneBody)
   }
 }
