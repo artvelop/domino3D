@@ -5,6 +5,7 @@ import { Light } from './modules/Light'
 import { FloorObject } from './modules/FloorObject'
 import * as CANNON from 'cannon-es'
 import { DominoObject } from './modules/DominoObject'
+import { PreventDragClick } from './modules/PreventDragClick'
 
 // ----- 주제: cannon.js 기본 세팅
 
@@ -110,6 +111,8 @@ export default function example() {
   }
 
   window.addEventListener('resize', setSize)
+
+  const prevenDragClickInstance = new PreventDragClick(canvas)
 
   draw()
 }
