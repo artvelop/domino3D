@@ -13,6 +13,7 @@ interface Constructor {
   height?: number
   depth?: number
   rotationY?: number
+  index: number
 }
 
 export class DominoObject {
@@ -29,7 +30,7 @@ export class DominoObject {
   public modelMesh: THREE.Object3D<THREE.Object3DEventMap> | undefined
   public cannonBody: CANNON.Body | undefined
 
-  constructor({ scene, cannonWorld, gltfLoader, x, y, z, width, height, depth, rotationY }: Constructor) {
+  constructor({ scene, cannonWorld, gltfLoader, x, y, z, width, height, depth, rotationY, index }: Constructor) {
     this.scene = scene
     this.cannonWorld = cannonWorld
 
@@ -48,7 +49,7 @@ export class DominoObject {
       this.modelMesh.castShadow = true
       this.modelMesh.position.set(this.x, this.y, this.z)
       this.scene.add(this.modelMesh)
-
+      this.modelMesh.name = `domino-${index}`
       this.setCannonBody()
     })
   }

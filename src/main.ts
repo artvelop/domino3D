@@ -7,8 +7,6 @@ import * as CANNON from 'cannon-es'
 import { DominoObject } from './modules/DominoObject'
 import { PreventDragClick } from './modules/PreventDragClick'
 
-// ----- 주제: cannon.js 기본 세팅
-
 // cannon.js 문서
 // http://schteppe.github.io/cannon.js/docs/
 // 주의! https 아니고 http
@@ -73,6 +71,7 @@ export default function example() {
       gltfLoader,
       y: 0,
       z: -index * 0.8,
+      index: index,
     })
 
     dominos.push(domino)
@@ -82,7 +81,6 @@ export default function example() {
 
   function draw() {
     const delta = clock.getDelta()
-    const time = clock.getElapsedTime()
 
     let cannonStepTime = 1 / 60
 
@@ -110,7 +108,36 @@ export default function example() {
     renderer.render(scene, cameraInstance.camera)
   }
 
+  const raycaster = new THREE.Raycaster()
+  const mouse = new THREE.Vector2()
+
+  function checkIntersects() {
+    raycaster.setFromCamera(mouse, cameraInstance.camera)
+
+    const intersects = raycaster.intersectObjects(scene.children)
+
+    for (let index = 0; index < intersects.length; index++) {
+      if (intersects[index].object) {
+        const intersectDomino = dominos.find((item) => item?.modelMesh?.name === `domino-${index}`)
+
+        intersectDomino?.cannonBody?.applyForce(new CANNON.Vec3(0, 0, -100), new CANNON.Vec3(0, 0, 0))
+
+        break
+      }
+    }
+  }
+
   window.addEventListener('resize', setSize)
+  canvas.addEventListener('click', (event) => {
+    if (prevenDragClickInstance.mouseMoved) {
+      return
+    }
+
+    mouse.x = (event.clientX / canvas.clientWidth) * 2 - 1
+    mouse.y = -((event.clientY / canvas.clientHeight) * 2 - 1)
+
+    checkIntersects()
+  })
 
   const prevenDragClickInstance = new PreventDragClick(canvas)
 
