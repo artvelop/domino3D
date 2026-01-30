@@ -44,7 +44,9 @@ export class DominoObject {
 
     this.rotationY = rotationY || 0
 
-    gltfLoader.load('/models/domino.glb', (glb: GLTF) => {
+    const modelUrl = new URL('../models/domino.glb', import.meta.url).href
+
+    gltfLoader.load(modelUrl, (glb: GLTF) => {
       this.modelMesh = glb.scene.children[0] as THREE.Object3D<THREE.Object3DEventMap>
       this.modelMesh.castShadow = true
       this.modelMesh.position.set(this.x, this.y, this.z)
