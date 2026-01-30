@@ -8,6 +8,7 @@ import { DominoObject } from './modules/DominoObject'
 import { PreventDragClick } from './modules/PreventDragClick'
 import { Renderer } from './modules/Renderer'
 import { World } from './modules/World'
+import { LoadingManager } from './modules/LoadingManager'
 
 // cannon.js 문서
 // http://schteppe.github.io/cannon.js/docs/
@@ -20,7 +21,8 @@ export default function example() {
     throw new Error('Canvas element not found')
   }
 
-  const gltfLoader = new GLTFLoader()
+  const loadingManager = new LoadingManager({ drawFunction: draw }).loadingManager
+  const gltfLoader = new GLTFLoader(loadingManager)
 
   const renderer = new Renderer({ canvas }).renderer
   const cannonWorld = new World().world
@@ -120,8 +122,6 @@ export default function example() {
   })
 
   const prevenDragClickInstance = new PreventDragClick(canvas)
-
-  draw()
 }
 
 example()

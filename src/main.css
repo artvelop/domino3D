@@ -1,6 +1,27 @@
 body {
 	margin: 0;
 }
+#loading {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #0c0f14;
+	color: #e9edf5;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-size: 18px;
+	letter-spacing: 0.04em;
+	z-index: 10;
+	transition: opacity 0.3s ease;
+}
+#loading.is-hidden {
+	opacity: 0;
+	pointer-events: none;
+}
 #three-canvas {
 	position: absolute;
 	left: 0;
