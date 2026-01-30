@@ -6,6 +6,8 @@ import { FloorObject } from './modules/FloorObject'
 import * as CANNON from 'cannon-es'
 import { DominoObject } from './modules/DominoObject'
 import { PreventDragClick } from './modules/PreventDragClick'
+import { Renderer } from './modules/Renderer'
+import { World } from './modules/World'
 
 // cannon.js 문서
 // http://schteppe.github.io/cannon.js/docs/
@@ -18,32 +20,12 @@ export default function example() {
     throw new Error('Canvas element not found')
   }
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-  })
-
-  renderer.setSize(innerWidth, innerHeight)
-  renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1)
-  renderer.shadowMap.enabled = true
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap
-
-  const scene = new THREE.Scene()
-
   const gltfLoader = new GLTFLoader()
 
-  const cannonWorld = new CANNON.World()
-  cannonWorld.gravity.set(0, -9.82, 0)
-  cannonWorld.broadphase = new CANNON.SAPBroadphase(cannonWorld)
+  const renderer = new Renderer({ canvas }).renderer
+  const cannonWorld = new World().world
 
-  const defaultMaterial = new CANNON.Material('default')
-
-  const defaultContactMaterial = new CANNON.ContactMaterial(defaultMaterial, defaultMaterial, {
-    friction: 0.01,
-    restitution: 0.9,
-  })
-
-  cannonWorld.defaultContactMaterial = defaultContactMaterial
+  const scene = new THREE.Scene()
 
   //camera
   const cameraInstance = new Camera()
@@ -58,8 +40,6 @@ export default function example() {
   //mesh
   const floorMeshInstance = new FloorObject({ cannonWorld })
   scene.add(floorMeshInstance.mesh)
-
-  console.log(cannonWorld)
 
   const dominos: DominoObject[] = []
   let domino
