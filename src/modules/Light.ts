@@ -6,7 +6,7 @@ export class Light {
 
   constructor() {
     this.ambientLight = new THREE.AmbientLight('white', 0.5)
-    this.directionalLight = new THREE.DirectionalLight('white', 1)
+    this.directionalLight = new THREE.DirectionalLight('white', 2.5)
 
     this.directionalLight.position.x = 1
     this.directionalLight.position.y = 2
