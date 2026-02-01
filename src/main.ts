@@ -9,6 +9,7 @@ import { PreventDragClick } from './modules/PreventDragClick'
 import { Renderer } from './modules/Renderer'
 import { World } from './modules/World'
 import { LoadingManager } from './modules/LoadingManager'
+import { ParticleStar } from './modules/ParticleStar'
 
 // cannon.js 문서
 // http://schteppe.github.io/cannon.js/docs/
@@ -58,6 +59,9 @@ export default function example() {
 
     dominos.push(domino)
   }
+
+  const particleStars = new ParticleStar({ textureLoader: new THREE.TextureLoader(loadingManager) })
+  scene.add(particleStars.particles)
 
   const clock = new THREE.Clock()
 
