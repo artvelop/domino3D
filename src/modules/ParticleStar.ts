@@ -22,7 +22,8 @@ export class ParticleStar {
     geometry.setAttribute('position', new BufferAttribute(positions, 3))
     // geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
 
-    const particleTexture = textureLoader.load('/images/star.png')
+    const textureUrl = new URL('../images/star.png', import.meta.url).href
+    const particleTexture = textureLoader.load(textureUrl)
 
     const material = new PointsMaterial({
       size: 0.1,
