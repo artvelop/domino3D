@@ -13,7 +13,7 @@ export class FloorObject {
     this.mesh = new THREE.Mesh(
       new THREE.PlaneGeometry(100, 100),
       new THREE.MeshStandardMaterial({
-        color: '#a3c585',
+        color: '#ddead1',
       }),
     )
 
